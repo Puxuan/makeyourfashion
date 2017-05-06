@@ -13,7 +13,7 @@ const style = {
 
 
 class CartItem extends React.Component {
-  getPrice = () => {
+  getPrice() {
     const order = this.props.cart[this.props.orderId];
     return this.props.specs.byIds[order.productId].price + (values(order.designs).length * 5);
   }
@@ -51,38 +51,41 @@ class CartItem extends React.Component {
     const spec = this.props.specs.byIds[order.productId];
     const error = this.props.error[order.id] || {};
     return spec ? (
-      <div key={order.id} className="cartitem">
-        <img alt="product" height={200} width={200} className="img" src={order.imgUrl} />
-        <div className="description">
-          <h6>{spec.name}</h6>
-          <div><p className="pricelabel">{`¥ ${(this.getPrice() * order.qty).toFixed(2)}`}</p></div>
-          <div>
-            <SelectField
-              style={style}
-              floatingLabelText="数量"
-              value={order.qty}
-              onChange={this.handleSelectQty}
-              error={error.qty}
-            >
-              {
-                range(0, 13).map(n => <MenuItem key={n} value={n} primaryText={n.toString()} />)
-              }
-            </SelectField>
-          </div>
-          <div>
-            <SelectField
-              style={style}
-              floatingLabelText="尺码"
-              value={order.size}
-              onChange={this.handleSelectSize}
-              errorText={error.size}
-            >
-              {
-                spec.sizes.map(n => <MenuItem value={n} primaryText={n} />)
-              }
-            </SelectField>
+      <div>
+        <div className="cartitem">
+          <img alt="product" height={200} width={200} className="img" src={order.imgUrl} />
+          <div className="description">
+            <h6>{spec.name}</h6>
+            <div><p className="pricelabel">{`¥ ${(this.getPrice() * order.qty).toFixed(2)}`}</p></div>
+            <div>
+              <SelectField
+                style={style}
+                floatingLabelText="数量"
+                value={order.qty}
+                onChange={this.handleSelectQty}
+                error={error.qty}
+              >
+                {
+                  range(0, 13).map(n => <MenuItem key={n} value={n} primaryText={n.toString()} />)
+                }
+              </SelectField>
+            </div>
+            <div>
+              <SelectField
+                style={style}
+                floatingLabelText="尺码"
+                value={order.size}
+                onChange={this.handleSelectSize}
+                errorText={error.size}
+              >
+                {
+                  spec.sizes.map(n => <MenuItem value={n} primaryText={n} />)
+                }
+              </SelectField>
+            </div>
           </div>
         </div>
+        <hr />
       </div>
     ) : null;
   }

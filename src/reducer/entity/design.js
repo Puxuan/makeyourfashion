@@ -27,7 +27,7 @@ function byTags(state = {}, action) {
         [action.payload.tag]: action.payload.designs.map(tag => tag.id),
       };
     case FINISH_FETCH_DESIGNS: {
-      return mapValues(keyBy(action.payload, 'id'), tag => tag.designs);
+      return mapValues(keyBy(action.payload, 'id'), tag => tag.designs.map(design => design.id));
     }
 
     default:

@@ -12,6 +12,7 @@ class ShoppingCartButton extends React.Component {
   static propTypes = {
     cart: object.isRequired,
   }
+
   state = {
     open: false,
   }
@@ -53,6 +54,7 @@ class ShoppingCartButton extends React.Component {
               {values(this.props.cart).map(order => <CartItem key={order.id} orderId={order.id} />)}
               <div className="actionsection">
                 <Link
+                  onClick={this.handleRequestClose}
                   to="/checkout"
                   className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent"
                 >结账</Link>

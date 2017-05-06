@@ -1,7 +1,9 @@
 {
   "extends": [
-    "eslint-config-kyt"
+    "airbnb"
   ],
+
+  "parser": "babel-eslint",
 
   "env": {
   },
@@ -10,5 +12,6 @@
   ],
 
   "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

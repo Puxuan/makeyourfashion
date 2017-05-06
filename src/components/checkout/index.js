@@ -1,47 +1,84 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+import { Grid, Cell } from 'react-mdl';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
+import AddressForm from './AddressForm';
+import CartDetail from './CartDetail';
+import Accordion from '../Accordion';
 
-const style = {
-  maxWidth: '800px',
-};
+export default class Checkout extends React.Component {
+  state = {
+    step: 0,
+    isAddressFormOpen: true,
+    isPaymentFormOpen: false,
+  }
 
-function Checkout() {
-  return (
-    <Paper style={style} >
-      <div className="paper-title">支付</div>
-      <div className="paper-content">
-        <TextField
-          floatingLabelText="电子邮箱"
-          hintText="您的电子邮箱"
-        />
-        <br />
-        <hr />
-        <legend>邮寄地址：</legend>
-        <TextField
-          floatingLabelText="姓名"
-          hintText="您的姓名"
-        />
-        <br />
-        <TextField
-          multiLine
-          floatingLabelText="详细地址"
-          fullWidth
-        />
-        <br />
-        <TextField
-          floatingLabelText="邮政编码"
-        />
-        <br />
-        <TextField
-          floatingLabelText="手机号码"
-          type="tel"
-        />
-        <br />
+  handleSaveAddress = () => {
+    this.setState({
+      step: 1,
+      isAddressFormOpen: false,
+      isPaymentFormOpen: true,
+    });
+  }
+
+  handleToggleAddressForm = () => {
+    this.setState({
+      isAddressFormOpen: !this.state.isAddressFormOpen,
+    });
+  }
+
+  handleTogglePaymentForm = () => {
+    this.setState({
+      isPaymentFormOpen: !this.state.isPaymentFormOpen,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Grid>
+          <Cell col={8}>
+            <Stepper activeStep={this.state.step}>
+              <Step>
+                <StepLabel>填写邮寄地址</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>填写支付信息</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>下单</StepLabel>
+              </Step>
+            </Stepper>
+          </Cell>
+        </Grid>
+        <Grid>
+          <Cell col={8}>
+            <Accordion
+              open={this.state.isAddressFormOpen}
+              onToggle={this.handleToggleAddressForm}
+              title="邮寄信息"
+            >
+              <AddressForm onNext={this.handleSaveAddress} />
+            </Accordion>
+            <Accordion
+              open={this.state.isPaymentFormOpen}
+              onToggle={this.handleTogglePaymentForm}
+              title="支付信息"
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <a href="">支付宝支付</a>
+                <a href="">微信支付</a>
+              </div>
+            </Accordion>
+          </Cell>
+          <Cell col={4}>
+            <CartDetail />
+          </Cell>
+        </Grid>
       </div>
-    </Paper>
-  );
+    );
+  }
 }
-
-export default Checkout;
-

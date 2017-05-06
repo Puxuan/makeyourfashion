@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'react-mdl';
 import AutoComplete from 'material-ui/AutoComplete';
+import {  } from 'lodash'
 import { toggleDesignModel, addDesignToPic, fetchDesigns } from '../../action';
 import Modal from '../Modal';
 import TagIcon from './TagIcon';
@@ -77,46 +78,43 @@ export default class SelectDesign extends React.Component {
     this.props.toggleDesignModel();
   }
 
-  handleTagClick = (tag) => {
+  handleTagClick = (v) => {
     this.setState({
-      query: tag,
+      query: Object.values(this.props.tags.byIds).find(tag => tag.name = v),
     });
   }
 
   handleSearchChange = (v) => {
     this.setState({
-      query: v,
-    });
-  }
-
-  handleSelectQuery = (t) => {
-    this.setState({
-      query: t,
-    });
-  }
-
-  handleClearSearch = (e) => {
-    e.preventDefault();
-    this.setState({
-      query: '',
+      query: Object.values(this.props.tags.byIds).find(tag => tag.name = v),
     });
   }
 
   render() {
-    const designIds = this.state.query ? (this.props.designs.byTags[this.state.query] || []) : this.props.designs.byPopularity;
+    const designIds = this.state.query ? (this.props.designs.byTags[this.state.query.id] || []) : this.props.designs.byPopularity;
+
     return (
       <Modal onCloseModal={this.handleToggleDesignModel} open={this.props.open}>
         <div style={{ display: 'flex' }}>
-          {this.props.tags.allIds.map(id => <TagIcon onClick={this.handleTagClick} value={this.props.tags.byIds[id].name} key={id}>
-            {this.props.tags.byIds[id].name}
-          </TagIcon>)}
+          {this.props.tags.allIds.map((id) => {
+            const tag = this.props.tags.byIds[id];
+            return (
+              <TagIcon
+                onClick={this.handleTagClick}
+                data-tagid={tag.id}
+                value={tag.name} key={id}
+              >
+                {tag.name}
+              </TagIcon>
+            );
+          })}
         </div>
         <div>
           <AutoComplete
             floatingLabelText="搜索"
             filter={AutoComplete.caseInsensitiveFilter}
             onUpdateInput={this.handleSearchChange}
-            searchText={this.state.query}
+            searchText={this.state.query.name}
             dataSource={this.props.tags.allIds.map(id => this.props.tags.byIds[id])}
             dataSourceConfig={{
               text: 'name',
