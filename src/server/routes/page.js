@@ -154,4 +154,15 @@ router.get('/checkout', (req, res) => {
   });
 });
 
+router.get('*', (req, res) => {
+  let design;
+  if (req.cookies.currentDesign) {
+    design = JSON.parse(req.cookies.currentDesign);
+  }
+  const initialState = getState(design, {});
+  renderHtml(req, initialState).then((html) => {
+    res.send(html);
+  });
+});
+
 export default router;

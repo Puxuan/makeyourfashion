@@ -9,6 +9,7 @@ import {
   REMOVE_TEXT,
   REMOVE_DESIGN,
   SELECT_PRODUCT,
+  REPLACE_CURRENT_DESIGN,
 } from '../action';
 
 function textByIds(state = {}, action) {
@@ -24,6 +25,8 @@ function textByIds(state = {}, action) {
       };
     case REMOVE_TEXT:
       return omitBy(state, (v, k) => k === action.payload);
+    case REPLACE_CURRENT_DESIGN:
+      return action.payload.texts.byIds;
     default:
       return state;
   }
@@ -41,6 +44,8 @@ function textByPics(state = {}, action) {
       };
     case REMOVE_TEXT:
       return mapValues(state, v => v.filter(id => id !== action.payload));
+    case REPLACE_CURRENT_DESIGN:
+      return action.payload.texts.byPics;
     default:
       return state;
   }
@@ -61,6 +66,8 @@ function designByIds(state = {}, action) {
       };
     case REMOVE_DESIGN:
       return omitBy(state, (v, k) => k === action.payload);
+    case REPLACE_CURRENT_DESIGN:
+      return action.payload.designs.byIds;
     default:
       return state;
   }
@@ -78,6 +85,8 @@ function designByPics(state = {}, action) {
       };
     case REMOVE_DESIGN:
       return mapValues(state, v => v.filter(id => id !== action.payload));
+    case REPLACE_CURRENT_DESIGN:
+      return action.payload.designs.byPics;
     default:
       return state;
   }
@@ -93,6 +102,8 @@ function detail(state = {}, action) {
         ...state,
         ...action.payload,
       };
+    case REPLACE_CURRENT_DESIGN:
+      return action.payload.detail;
     default:
       return state;
   }

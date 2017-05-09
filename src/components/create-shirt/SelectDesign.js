@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'react-mdl';
 import AutoComplete from 'material-ui/AutoComplete';
-import {  } from 'lodash'
 import { toggleDesignModel, addDesignToPic, fetchDesigns } from '../../action';
 import Modal from '../Modal';
 import TagIcon from './TagIcon';

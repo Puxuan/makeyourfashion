@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import 'es6-promise';
+import 'isomorphic-fetch';
 
 import { indigo500, indigo700, indigo800 } from 'material-ui/styles/colors';
 import { createStore, applyMiddleware } from 'redux';

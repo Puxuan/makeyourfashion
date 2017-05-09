@@ -12,6 +12,10 @@ const Checkout = asyncComponent({
   resolve: () => System.import('./components/checkout'),
 });
 
+const Landing = asyncComponent({
+  resolve: () => System.import('./components/landing'),
+});
+
 function App() {
   return (
     <div>
@@ -26,6 +30,7 @@ function App() {
       <div className="main-content" >
         <Route exact path="/create" component={CreateShirt} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route path="/" component={Landing} />
       </div>
     </div>
   );

@@ -6,5 +6,14 @@ import error from './error';
 import cart from './cart';
 import ui from './ui';
 import currentDesign from './currentDesign';
+import address from './address';
 
-export default combineReducers({ entities, ui, fetchStatus, cart, currentDesign, error });
+export default combineReducers({
+  entities,
+  ui,
+  fetchStatus,
+  cart,
+  currentDesign,
+  error,
+  address,
+});

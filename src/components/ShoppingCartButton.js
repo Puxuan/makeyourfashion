@@ -38,7 +38,7 @@ class ShoppingCartButton extends React.Component {
         <Badge
           className="cart-icon"
           onClick={this.handleClick}
-          text={sum(map(this.props.cart, order => order.qty))} overlap
+          text={sum(map(this.props.cart, order => order.detail.qty))} overlap
         >
           <Icon name="shopping_cart" />
         </Badge>

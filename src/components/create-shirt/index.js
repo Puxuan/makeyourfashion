@@ -34,18 +34,11 @@ class CreateShirt extends React.Component {
 
   handleAddToCard = (e) => {
     e.preventDefault();
-    // this.canvas.getWrappedInstance().generateImage().then((imgUrl) => {
-    //   this.props.addToCart({
-    //     ...this.props.currentDesign,
-    //     imgUrl,
-    //   });
-    // });
-    const { detail, designs, texts } = this.props.currentDesign;
-    this.props.addToCart({
-      ...detail,
-      designs,
-      texts,
-      imgUrl: '//image4.spreadshirtmedia.com/image-server/v1/products/1018088125/views/1?width=120&height=120&appearanceId=228',
+    this.canvas.getWrappedInstance().generateImage().then((imgUrl) => {
+      this.props.addToCart({
+        ...this.props.currentDesign,
+        imgUrl,
+      });
     });
   }
 
@@ -69,7 +62,7 @@ class CreateShirt extends React.Component {
             />
             <div style={{ marginTop: '10px' }}>
               {
-                this.props.spec ? this.props.spec.pics.map(pic =>
+                this.props.spec.pics ? this.props.spec.pics.map(pic =>
                   <a key={pic.id} onClick={this.handleSelectImage} href={pic.id}>
                     <img src={pic.smallUrl} alt="small" style={imgStyle} />
                   </a>) : null

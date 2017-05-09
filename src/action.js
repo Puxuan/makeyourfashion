@@ -1,6 +1,5 @@
 import { isEmpty, omitBy } from 'lodash';
 import uuid from 'uuid/v4';
-import { validateOrder } from './validation';
 import { host } from './config';
 
 const TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL';
@@ -41,6 +40,9 @@ const SELECT_PRODUCT = 'SELECT_PRODUCT';
 const SET_MODE = 'SET_MODE';
 const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
 const SET_ACTIVE_SUB_CATEGORY = 'SET_ACTIVE_SUB_CATEGORY';
+const ADD_ADDRESS = 'ADD_ADDRESS';
+const REPLACE_CURRENT_DESIGN = 'REPLACE_CURRENT_DESIGN';
+const CLEAR_CART = 'CLEAR_CART';
 
 function toggleProductModel(payload) {
   return {
@@ -57,10 +59,31 @@ const toggleAddTextPanel = {
   type: TOGGLE_ADD_TEXT_PANEL,
 };
 
+const clearCart = {
+  type: CLEAR_CART,
+};
+
 function setActiveCategory(category) {
   return {
     type: SET_ACTIVE_CATEGORY,
     payload: category,
+  };
+}
+
+function addAddress(address) {
+  return {
+    type: ADD_ADDRESS,
+    payload: address,
+  };
+}
+
+function editCartItem(id) {
+  return (dispatch, getState) => {
+    const cartItem = getState().cart[id];
+    dispatch({
+      type: REPLACE_CURRENT_DESIGN,
+      payload: cartItem,
+    });
   };
 }
 
@@ -164,18 +187,9 @@ function addDesignToPic(design) {
 }
 
 function updateCartItem(payload) {
-  return (dispatch, getState) => {
-    if (isEmpty(validateOrder(payload))) {
-      const newCart = {
-        ...getState().entities.cart,
-        [payload.id]: payload,
-      };
-      localStorage.setItem('myf_cart', JSON.stringify(newCart));
-    }
-    dispatch({
-      type: UPDATE_CART_ITEM,
-      payload,
-    });
+  return {
+    type: UPDATE_CART_ITEM,
+    payload,
   };
 }
 
@@ -358,6 +372,9 @@ export {
   SET_ACTIVE_SUB_CATEGORY,
   START_FETCH_CATEGORIES,
   FINISH_FETCH_CATEGORIES,
+  ADD_ADDRESS,
+  CLEAR_CART,
+  REPLACE_CURRENT_DESIGN,
   updateActiveImage,
   toggleProductModel,
   toggleDesignModel,
@@ -384,4 +401,7 @@ export {
   setActiveCategory,
   setActiveSubCategory,
   fetchCategories,
+  addAddress,
+  editCartItem,
+  clearCart,
 };
