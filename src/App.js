@@ -30,7 +30,7 @@ function App() {
       <div className="main-content" >
         <Route exact path="/create" component={CreateShirt} />
         <Route exact path="/checkout" component={Checkout} />
-        <Route path="/" component={Landing} />
+        <Route exact path="/" component={Landing} />
       </div>
     </div>
   );

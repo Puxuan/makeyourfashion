@@ -73,24 +73,30 @@ export default class SelectDesign extends React.Component {
   }
 
   handleToggleDesignModel = (e) => {
-    e.preventDefault();
     this.props.toggleDesignModel();
   }
 
   handleTagClick = (v) => {
     this.setState({
-      query: Object.values(this.props.tags.byIds).find(tag => tag.name = v),
+      query: v,
     });
   }
 
   handleSearchChange = (v) => {
     this.setState({
-      query: Object.values(this.props.tags.byIds).find(tag => tag.name = v),
+      query: v,
     });
   }
 
   render() {
-    const designIds = this.state.query ? (this.props.designs.byTags[this.state.query.id] || []) : this.props.designs.byPopularity;
+    let designIds;
+    if (this.state.query) {
+      const selecedTag = Object.values(this.props.tags.byIds)
+        .find(tag => tag.name === this.state.query);
+      designIds = selecedTag ? this.props.designs.byTags[selecedTag.id] : [];
+    } else {
+      designIds = this.props.designs.byPopularity;
+    }
 
     return (
       <Modal onCloseModal={this.handleToggleDesignModel} open={this.props.open}>
@@ -113,7 +119,7 @@ export default class SelectDesign extends React.Component {
             floatingLabelText="搜索"
             filter={AutoComplete.caseInsensitiveFilter}
             onUpdateInput={this.handleSearchChange}
-            searchText={this.state.query.name}
+            searchText={this.state.query}
             dataSource={this.props.tags.allIds.map(id => this.props.tags.byIds[id])}
             dataSourceConfig={{
               text: 'name',
