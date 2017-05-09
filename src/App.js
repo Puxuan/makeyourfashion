@@ -1,20 +1,12 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-mdl';
 import { Route } from 'react-router-dom';
-import { asyncComponent } from 'react-async-component';
 import ShoppingCartButton from './components/ShoppingCartButton';
+import Landing from './components/landing';
+import CreateShirt from './components/create-shirt';
+import Checkout from './components/checkout';
 
-const CreateShirt = asyncComponent({
-  resolve: () => System.import('./components/create-shirt'),
-});
-
-const Checkout = asyncComponent({
-  resolve: () => System.import('./components/checkout'),
-});
-
-const Landing = asyncComponent({
-  resolve: () => System.import('./components/landing'),
-});
+// const Landing = require('./components/landing');
 
 function App() {
   return (
@@ -28,9 +20,9 @@ function App() {
         <ShoppingCartButton className="shopping-cart-icon" />
       </div>
       <div className="main-content" >
+        <Route exact path="/" component={Landing} />
         <Route exact path="/create" component={CreateShirt} />
         <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/" component={Landing} />
       </div>
     </div>
   );

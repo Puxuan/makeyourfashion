@@ -147,7 +147,7 @@ class Checkout extends React.Component {
         <Snackbar
           open={this.state.isSuccessOpen}
           message="成功下单，即将跳转至主页"
-          autoHideDuration={10000}
+          autoHideDuration={4000}
           onRequestClose={this.handleSuccessClose}
         />
       </div>

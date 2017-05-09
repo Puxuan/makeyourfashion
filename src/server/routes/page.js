@@ -7,7 +7,6 @@ import { renderToString } from 'react-dom/server';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { indigo500, indigo700, indigo800 } from 'material-ui/styles/colors';
-import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { StaticRouter } from 'react-router';
 import App from '../../App';
@@ -45,6 +44,7 @@ function getState(currentDesign = { detail: {}, texts: {}, designs: {} }, catalo
         byCategories: {},
       },
     },
+    address: {},
     currentDesign,
     ui: {
       createOrder: {
@@ -73,7 +73,6 @@ function getState(currentDesign = { detail: {}, texts: {}, designs: {} }, catalo
 }
 
 function renderHtml(req, initialState) {
-  const asyncContext = createAsyncContext();
   const store = createStore(reducer, initialState);
   const muiTheme = getMuiTheme({
     palette: {
@@ -85,18 +84,16 @@ function renderHtml(req, initialState) {
     userAgent: req.headers['user-agent'],
   });
   const reactApp = (
-    <AsyncComponentProvider asyncContext={asyncContext}>
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <Provider store={store}>
-          <StaticRouter
-            location={req.url}
-            context={{}}
-          >
-            <App />
-          </StaticRouter>
-        </Provider>
-      </MuiThemeProvider>
-    </AsyncComponentProvider>
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <Provider store={store}>
+        <StaticRouter
+          location={req.url}
+          context={{}}
+        >
+          <App />
+        </StaticRouter>
+      </Provider>
+    </MuiThemeProvider>
   );
   return asyncBootstrapper(reactApp).then(() => template({
     root: renderToString(reactApp),
@@ -154,7 +151,7 @@ router.get('/checkout', (req, res) => {
   });
 });
 
-router.get('*', (req, res) => {
+router.get('/', (req, res) => {
   let design;
   if (req.cookies.currentDesign) {
     design = JSON.parse(req.cookies.currentDesign);

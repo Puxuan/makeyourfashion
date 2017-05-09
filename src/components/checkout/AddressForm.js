@@ -118,6 +118,7 @@ export default class AddressForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <TextField
+          id="email-input"
           floatingLabelText="电子邮箱"
           value={this.state.email}
           onChange={this.handleEmailChange}
@@ -128,6 +129,7 @@ export default class AddressForm extends React.Component {
         <hr />
         <legend>邮寄地址：</legend>
         <TextField
+          id="name-input"
           floatingLabelText="姓名"
           value={this.state.name}
           onChange={this.handleNameChange}
@@ -136,6 +138,7 @@ export default class AddressForm extends React.Component {
         />
         <br />
         <TextField
+          id="address-input"
           multiLine
           floatingLabelText="详细地址"
           value={this.state.address}
@@ -145,6 +148,7 @@ export default class AddressForm extends React.Component {
         />
         <br />
         <TextField
+          id="zipcode-input"
           floatingLabelText="邮政编码"
           value={this.state.zipcode}
           pattern="[0-9]{6}"
@@ -154,6 +158,7 @@ export default class AddressForm extends React.Component {
         />
         <br />
         <TextField
+          id="phone-input"
           floatingLabelText="手机号码"
           value={this.state.phone}
           onChange={this.handlePhoneChange}

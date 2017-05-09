@@ -30,6 +30,7 @@
     "react-async-component": "^1.0.0-beta.3",
     "react-color": "^2.11.4",
     "react-dom": "^15.5.4",
+    "react-hot-loader": "next",
     "react-konva": "^1.1.1",
     "react-mdl": "^1.9.0",
     "react-redux": "^5.0.3",
