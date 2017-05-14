@@ -38,6 +38,7 @@ class OrderForm extends React.Component {
         <form className="orderform">
           <div><p className="pricelabel">{`单价：¥ ${price.toFixed(2)}`}</p></div>
           <SelectField
+            id="select-qty"
             style={{ width: '120px' }}
             floatingLabelText="数量"
             value={this.props.currentDesign.detail.qty}
@@ -49,6 +50,7 @@ class OrderForm extends React.Component {
             }
           </SelectField>
           <SelectField
+            id="select-size"
             style={{ width: '120px' }}
             floatingLabelText="尺码"
             value={this.props.currentDesign.detail.size}
