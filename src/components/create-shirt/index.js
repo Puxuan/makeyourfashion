@@ -6,7 +6,7 @@ import LeftPanel from './LeftPanel';
 import SelectProduct from './SelectProduct';
 import SelectDesign from './SelectDesign';
 import OrderForm from './OrderForm';
-import { addToCart, updateActiveImage, fetchSpec } from '../../action';
+import { addToCart, updateActiveImage, fetchSpec, updateCartItem, resetCreateOrderState } from '../../action';
 
 const { func, object } = React.PropTypes;
 
@@ -15,8 +15,10 @@ const imgStyle = { width: '50px', height: '50px', border: '1px solid transparent
 class CreateShirt extends React.Component {
   static propTypes = {
     addToCart: func.isRequired,
+    updateCart: func.isRequired,
     updateActiveImage: func.isRequired,
     fetchSpec: func.isRequired,
+    reset: func.isRequired,
     currentDesign: object.isRequired,
     spec: object,
   }
@@ -32,11 +34,26 @@ class CreateShirt extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.reset();
+  }
+
   handleAddToCard = (e) => {
     e.preventDefault();
     this.canvas.getWrappedInstance().generateImage().then((imgUrl) => {
       this.props.addToCart({
         ...this.props.currentDesign,
+        imgUrl,
+      });
+    });
+  }
+
+  handleUpdateCart = (e) => {
+    e.preventDefault();
+    this.canvas.getWrappedInstance().generateImage().then((imgUrl) => {
+      this.props.updateCart({
+        ...this.props.currentDesign,
+        id: this.props.currentDesign.detail.cartId,
         imgUrl,
       });
     });
@@ -74,10 +91,15 @@ class CreateShirt extends React.Component {
           </Cell>
         </Grid>
         <div className="actionarea">
-          <Button
-            onClick={this.handleAddToCard}
-            className="actionbutton" accent ripple raised
-          >添加到购物车</Button>
+          {
+            this.props.currentDesign.detail.cartId ? <Button
+              onClick={this.handleUpdateCart}
+              className="actionbutton" accent ripple raised
+            >更新购物车</Button> : <Button
+              onClick={this.handleAddToCard}
+              className="actionbutton" accent ripple raised
+            >添加到购物车</Button>
+          }
         </div>
       </div>
     );
@@ -91,10 +113,16 @@ export default connect(state => ({
   addToCart(order) {
     dispatch(addToCart(order));
   },
+  updateCart(order) {
+    dispatch(updateCartItem(order));
+  },
   updateActiveImage(id) {
     dispatch(updateActiveImage(id));
   },
   fetchSpec(id) {
     dispatch(fetchSpec(id));
+  },
+  reset() {
+    dispatch(resetCreateOrderState);
   },
 }))(CreateShirt);

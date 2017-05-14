@@ -14,7 +14,10 @@ function cart(state = {}, action) {
       if (isEmpty(validateOrder(action.payload))) {
         return {
           ...state,
-          [action.payload.id]: action.payload,
+          [action.payload.id]: {
+            ...state[action.payload.id],
+            ...action.payload,
+          },
         };
       }
       return state;

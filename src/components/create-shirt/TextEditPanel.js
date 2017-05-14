@@ -143,7 +143,7 @@ class TextEditPanel extends React.Component {
             onChange={this.handleChangeFontSize}
           >
             {
-              range(30, 46).map(n => <MenuItem value={n} primaryText={n} />)
+              range(30, 46).map(n => <MenuItem key={n} value={n} primaryText={n} />)
             }
           </SelectField>
         </div>

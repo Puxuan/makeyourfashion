@@ -10,12 +10,21 @@ import {
   SET_ACTIVE_CATEGORY,
   SET_ACTIVE_SUB_CATEGORY,
   FINISH_FETCH_CATEGORIES,
+  RESET_CREATE_ORDER_STATE,
 } from '../../action';
 
-function createOrder(state = {
+const initialState = {
   editable: true,
-}, action) {
+  isDesignModelOpen: false,
+  isProductModelOpen: false,
+  showTextEdit: false,
+  showTextSettings: false,
+};
+
+function createOrder(state = initialState, action) {
   switch (action.type) {
+    case RESET_CREATE_ORDER_STATE:
+      return initialState;
     case FINISH_FETCH_CATEGORIES:
       return {
         ...state,

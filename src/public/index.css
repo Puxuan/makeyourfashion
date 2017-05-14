@@ -124,7 +124,7 @@ canvas {
 }
 
 .flexlist {
-  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -313,4 +313,40 @@ canvas {
 
 legend {
   font-weight: bold;
+}
+
+.category-card {
+  width: 230px;
+  margin: 0px 10px 20px 10px;
+}
+
+.category-card2 {
+  width: 480px;
+  margin: 0px 10px 20px 10px;
+}
+
+.landing-background {
+  background:blue url("/image/background.jpg") no-repeat scroll center;
+  height: 600px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.landing-background .welcome {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  bottom: 10%;
+}
+
+.landing-background h2 {
+  text-shadow: 0 0 10px rgba(20,20,20,.7);
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.landing-category {
+  max-width: 1000px;
+  margin: auto;
 }

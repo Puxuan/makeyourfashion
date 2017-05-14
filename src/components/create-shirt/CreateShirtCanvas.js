@@ -33,12 +33,11 @@ class CreateShirtCanvas extends React.Component {
 
   componentDidMount() {
     const spec = this.props.specs.byIds[this.props.currentDesign.detail.productId];
-    // FIXME: change to bigUrl
     if (spec) {
       const image = new window.Image();
+      image.crossOrigin = 'anonymous';
       image.src = (spec.pics.find(pic => pic.id === this.props.activeImageId)
         || spec.pics[0]).largeUrl;
-      image.crossOrigin = 'Anonymous';
       image.onload = () => {
         this.setState({
           image,
@@ -53,7 +52,7 @@ class CreateShirtCanvas extends React.Component {
     const newProduct = nextProps.specs.byIds[nextProps.currentDesign.detail.productId] || {};
     if (newProduct && nextProps.activeImageId !== this.props.activeImageId) {
       const image = new window.Image();
-      // FIXME: change to bigUrl
+      image.crossOrigin = 'anonymous';
       image.src = (newProduct.pics.find(pic => pic.id === nextProps.activeImageId)
         || newProduct.pics[0]).largeUrl;
       image.onload = () => {

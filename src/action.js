@@ -2,6 +2,7 @@ import { isEmpty, omitBy } from 'lodash';
 import uuid from 'uuid/v4';
 import { host } from './config';
 
+const RESET_CREATE_ORDER_STATE = 'RESET_CREATE_ORDER_STATE';
 const TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL';
 const TOGGLE_DESIGN_MODEL = 'TOGGLE_DESIGN_MODEL';
 const UPDATE_ORDER = 'UPDATE_ORDER';
@@ -44,12 +45,9 @@ const ADD_ADDRESS = 'ADD_ADDRESS';
 const REPLACE_CURRENT_DESIGN = 'REPLACE_CURRENT_DESIGN';
 const CLEAR_CART = 'CLEAR_CART';
 
-function toggleProductModel(payload) {
-  return {
-    type: TOGGLE_PRODUCT_MODEL,
-    payload,
-  };
-}
+const resetCreateOrderState = {
+  type: RESET_CREATE_ORDER_STATE,
+};
 
 const toggleDesignModel = {
   type: TOGGLE_DESIGN_MODEL,
@@ -62,6 +60,13 @@ const toggleAddTextPanel = {
 const clearCart = {
   type: CLEAR_CART,
 };
+
+function toggleProductModel(payload) {
+  return {
+    type: TOGGLE_PRODUCT_MODEL,
+    payload,
+  };
+}
 
 function setActiveCategory(category) {
   return {
@@ -82,7 +87,13 @@ function editCartItem(id) {
     const cartItem = getState().cart[id];
     dispatch({
       type: REPLACE_CURRENT_DESIGN,
-      payload: cartItem,
+      payload: {
+        ...cartItem,
+        detail: {
+          ...cartItem.detail,
+          cartId: id,
+        },
+      },
     });
   };
 }
@@ -375,6 +386,8 @@ export {
   ADD_ADDRESS,
   CLEAR_CART,
   REPLACE_CURRENT_DESIGN,
+  RESET_CREATE_ORDER_STATE,
+  resetCreateOrderState,
   updateActiveImage,
   toggleProductModel,
   toggleDesignModel,

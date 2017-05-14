@@ -84,7 +84,7 @@ class CartItem extends React.Component {
                 errorText={error.size}
               >
                 {
-                  spec.sizes.map(n => <MenuItem value={n} primaryText={n} />)
+                  spec.sizes.map(n => <MenuItem key={n} value={n} primaryText={n} />)
                 }
               </SelectField>
             </div>

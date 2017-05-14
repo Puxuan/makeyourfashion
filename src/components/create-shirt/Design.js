@@ -92,8 +92,8 @@ class Design extends React.Component {
     };
     if (design) {
       const image = new window.Image();
+      image.crossOrigin = 'anonymous';
       image.src = design.imgUrl;
-      image.crossOrigin = 'Anonymous';
       image.onload = () => {
         this.setState({
           image,
@@ -108,7 +108,7 @@ class Design extends React.Component {
       this.bottomright.show();
       this.rect.show();
       this.removeBtn.show();
-      this.rotateBtn.show();
+      // this.rotateBtn.show();
     }
 
     if (!this.props.editible) {
@@ -118,7 +118,7 @@ class Design extends React.Component {
       this.bottomright.hide();
       this.rect.hide();
       this.removeBtn.hide();
-      this.rotateBtn.hide();
+      // this.rotateBtn.hide();
     }
   }
 
@@ -127,6 +127,7 @@ class Design extends React.Component {
     const design = nextProps.designs.byIds[nextDesignId];
     if (design) {
       const image = new window.Image();
+      image.crossOrigin = 'anonymous';
       image.src = design.imgUrl;
       image.onload = () => {
         this.setState({
@@ -142,7 +143,7 @@ class Design extends React.Component {
       this.bottomleft.show();
       this.bottomright.show();
       this.removeBtn.show();
-      this.rotateBtn.show();
+      // this.rotateBtn.show();
       this.props.onChangeLayer();
     }
 
@@ -153,7 +154,7 @@ class Design extends React.Component {
       this.bottomleft.hide();
       this.bottomright.hide();
       this.removeBtn.hide();
-      this.rotateBtn.hide();
+      // this.rotateBtn.hide();
       this.props.onChangeLayer();
     }
   }
@@ -229,8 +230,8 @@ class Design extends React.Component {
     this.bottomright.setY(this.group.attrs.y + this.group.attrs.height + ZOOM_BTN_SIZE);
     this.removeBtn.setX(this.group.attrs.x - 27.5);
     this.removeBtn.setY((this.group.attrs.y + (this.group.attrs.height / 2)) - 10);
-    this.rotateBtn.setX(this.group.attrs.x + this.group.attrs.width + 12.5);
-    this.rotateBtn.setY((this.group.attrs.y + (this.group.attrs.height / 2)) - 10);
+    // this.rotateBtn.setX(this.group.attrs.x + this.group.attrs.width + 12.5);
+    // this.rotateBtn.setY((this.group.attrs.y + (this.group.attrs.height / 2)) - 10);
   }
 
   reRenderGroup = (x, y, width, height) => {
@@ -400,7 +401,7 @@ class Design extends React.Component {
             onMouseOut={this.handleMouseOut}
           />
         </Group>
-        <Group
+        {/* <Group
           x={canvasXY.x + adjWidth + 12.5} y={(canvasXY.y + (adjHeight / 2)) - 10}
           height={20}
           width={20}
@@ -422,7 +423,7 @@ class Design extends React.Component {
             onMouseOver={this.handleMouseOver}
             onMouseOut={this.handleMouseOut}
           />
-        </Group>
+        </Group>*/}
         <Group
           ref={(g) => { this.group = g; }}
           x={canvasXY.x} y={canvasXY.y}
