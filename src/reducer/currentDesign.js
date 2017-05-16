@@ -10,6 +10,7 @@ import {
   REMOVE_DESIGN,
   SELECT_PRODUCT,
   REPLACE_CURRENT_DESIGN,
+  ADD_TO_CART,
 } from '../action';
 
 function textByIds(state = {}, action) {
@@ -27,6 +28,8 @@ function textByIds(state = {}, action) {
       return omitBy(state, (v, k) => k === action.payload);
     case REPLACE_CURRENT_DESIGN:
       return action.payload.texts.byIds;
+    case SELECT_PRODUCT:
+      return {};
     default:
       return state;
   }
@@ -46,6 +49,8 @@ function textByPics(state = {}, action) {
       return mapValues(state, v => v.filter(id => id !== action.payload));
     case REPLACE_CURRENT_DESIGN:
       return action.payload.texts.byPics;
+    case SELECT_PRODUCT:
+      return {};
     default:
       return state;
   }
@@ -68,6 +73,8 @@ function designByIds(state = {}, action) {
       return omitBy(state, (v, k) => k === action.payload);
     case REPLACE_CURRENT_DESIGN:
       return action.payload.designs.byIds;
+    case SELECT_PRODUCT:
+      return {};
     default:
       return state;
   }
@@ -87,6 +94,8 @@ function designByPics(state = {}, action) {
       return mapValues(state, v => v.filter(id => id !== action.payload));
     case REPLACE_CURRENT_DESIGN:
       return action.payload.designs.byPics;
+    case SELECT_PRODUCT:
+      return {};
     default:
       return state;
   }
@@ -96,7 +105,15 @@ const designs = combineReducers({ byIds: designByIds, byPics: designByPics });
 
 function detail(state = {}, action) {
   switch (action.type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cartId: action.payload.id,
+      };
     case SELECT_PRODUCT:
+      return {
+        productId: action.payload.productId,
+      };
     case UPDATE_CURRENT_DESIGN:
       return {
         ...state,

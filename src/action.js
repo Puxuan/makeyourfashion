@@ -1,11 +1,11 @@
 import { isEmpty, omitBy } from 'lodash';
 import uuid from 'uuid/v4';
 import { host } from './config';
+import { validateOrder } from './validation';
 
 const RESET_CREATE_ORDER_STATE = 'RESET_CREATE_ORDER_STATE';
 const TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL';
 const TOGGLE_DESIGN_MODEL = 'TOGGLE_DESIGN_MODEL';
-const UPDATE_ORDER = 'UPDATE_ORDER';
 const START_FETCH_PRODUCT = 'START_FETCH_PRODUCT';
 const FINISH_FETCH_PRODUCT = 'FINISH_FETCH_PRODUCT';
 const START_FETCH_DESIGNS = 'START_FETCH_DESIGNS';
@@ -44,9 +44,16 @@ const SET_ACTIVE_SUB_CATEGORY = 'SET_ACTIVE_SUB_CATEGORY';
 const ADD_ADDRESS = 'ADD_ADDRESS';
 const REPLACE_CURRENT_DESIGN = 'REPLACE_CURRENT_DESIGN';
 const CLEAR_CART = 'CLEAR_CART';
+const UPDATE_ORDER_ERROR = 'UPDATE_ORDER_ERROR';
+const UPDATE_CART_ERROR = 'UPDATE_CART_ERROR';
+const HIDE_ADD_TO_CART_SUCCESS = 'HIDE_ADD_TO_CART_SUCCESS';
 
 const resetCreateOrderState = {
   type: RESET_CREATE_ORDER_STATE,
+};
+
+const hideAddToCartSuccess = {
+  type: HIDE_ADD_TO_CART_SUCCESS,
 };
 
 const toggleDesignModel = {
@@ -198,9 +205,21 @@ function addDesignToPic(design) {
 }
 
 function updateCartItem(payload) {
-  return {
-    type: UPDATE_CART_ITEM,
-    payload,
+  return (dispatch) => {
+    const errors = validateOrder(payload);
+    if (isEmpty(errors)) {
+      dispatch({
+        type: UPDATE_CART_ITEM,
+        payload: {
+          ...payload,
+        },
+      });
+    } else {
+      dispatch({
+        type: UPDATE_CART_ERROR,
+        payload: errors,
+      });
+    }
   };
 }
 
@@ -217,12 +236,22 @@ function removeItemFromCart(payload) {
 }
 
 function addToCart(payload) {
-  return {
-    type: ADD_TO_CART,
-    payload: {
-      ...payload,
-      id: uuid(),
-    },
+  return (dispatch) => {
+    const errors = validateOrder(payload);
+    if (isEmpty(errors)) {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: {
+          ...payload,
+          id: uuid(),
+        },
+      });
+    } else {
+      dispatch({
+        type: UPDATE_ORDER_ERROR,
+        payload: errors,
+      });
+    }
   };
 }
 
@@ -347,7 +376,6 @@ function fetchDesignsByTag(tag) {
 export {
   TOGGLE_PRODUCT_MODEL,
   TOGGLE_DESIGN_MODEL,
-  UPDATE_ORDER,
   START_FETCH_PRODUCT,
   FINISH_FETCH_PRODUCT,
   START_FETCH_DESIGNS,
@@ -355,18 +383,21 @@ export {
   START_FETCH_TAG,
   FINISH_FETCH_TAG,
   ADD_TO_CART,
+  UPDATE_ORDER_ERROR,
   UPDATE_CART_ITEM,
   REMOVE_ITEM_FROM_CART,
   ADD_DESIGNS_BY_TAG,
   ADD_SORTED_DESIGNS,
   ENTER_PREVIEW_MODE,
   TOGGLE_ADD_TEXT_PANEL,
+  HIDE_ADD_TO_CART_SUCCESS,
   REPLACE_TAGS,
   UPDATE_ACTIVE_TEXT_ID,
   TOGGLE_EDIT_TEXT_PANEL,
   START_FETCH_CATEGORY,
   FINISH_FETCH_CATEGORY,
   UPDATE_ACTIVE_IMAGE,
+  UPDATE_CART_ERROR,
   REMOVE_DESIGN,
   ADD_SPEC,
   UPDATE_TEXT,
@@ -392,6 +423,7 @@ export {
   toggleProductModel,
   toggleDesignModel,
   updateCurrentDesign,
+  hideAddToCartSuccess,
   fetchDesigns,
   fetchTags,
   setMode,

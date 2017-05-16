@@ -56,6 +56,7 @@ function getState(currentDesign = { detail: {}, texts: {}, designs: {} }, catalo
         activeCategory: null,
         activeSubCategory: null,
         activeImageId: spec.pics ? spec.pics[0].id : null,
+        showAddToCartSuccess: false,
       },
     },
     fetchStatus: {

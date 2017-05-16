@@ -3,6 +3,11 @@ import { Card, CardMedia, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
 
+const styles = {
+  title: { fontSize: '1.2em' },
+  mainCategory: typeof window !== 'undefined' && window.matchMedia('(max-width: 1000px)').matches ? { height: '50%' } : {},
+};
+
 const Landing = () => (
   <div>
     <div className="landing-background">
@@ -12,56 +17,47 @@ const Landing = () => (
       </div>
     </div>
     <div className="flexlist landing-category">
-      <Card>
+      <Card className="landing-category-main">
         <CardMedia
+          overlayContainerStyle={styles.mainCategory} overlayContentStyle={styles.mainCategory}
           overlay={<CardTitle title="男士" />}
         >
-          <img width={200} height={480} src="//image.spreadshirtmedia.com/content/t_std/f_auto/cms/startpage/tiles/men_us_1609" />
+          <img src="//image.spreadshirtmedia.com/content/t_std/f_auto/cms/startpage/tiles/men_us_1609" />
         </CardMedia>
       </Card>
-      <div style={{maxWidth: '750px'}}>
+      <div className="landing-sub-cat">
         <div className="flexlist">
-          <Card
-            className="category-card"
-          >
+          <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle title="母亲节特辑" />}
+              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="母亲节" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgBlack-medium,f_auto/aum/na/designs/1008125251,width=300,height=300,mother\'s day.png" />
             </CardMedia>
           </Card>
-          <Card
-            className="category-card"
-          >
+          <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle title="生日特辑" />}
+              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="生日特辑" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgBlack-medium,f_auto/aum/na/designs/13348114,width=300,height=300,Birthday.png" />
             </CardMedia>
           </Card>
-          <Card
-            className="category-card"
-          >
+          <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle title="热销单品" />}
+              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="热销单品" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgGray-medium,f_auto/aum/na/designs/13114679,width=280,height=280,Favorites.png" />
             </CardMedia>
           </Card>
-          <Card
-            className="category-card"
-          >
+          <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle title="春季特辑" />}
+              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="春季特辑" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgBlack-medium,f_auto/v5/aum/na/designs/1010210661,width=280,height=280,Spring.png" />
             </CardMedia>
           </Card>
-          <Card
-            className="category-card2"
-          >
+          <Card className="category-card2">
             <CardMedia
-              overlay={<CardTitle title="手工艺品" />}
+              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="手工艺品" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_std/f_auto/cms/startpage/tiles/accessories_us_1701" />
             </CardMedia>

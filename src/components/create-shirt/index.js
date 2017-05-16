@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Grid, Cell, Button } from 'react-mdl';
+import Snackbar from 'material-ui/Snackbar';
 import CreateShirtCanvas from './CreateShirtCanvas';
 import LeftPanel from './LeftPanel';
 import SelectProduct from './SelectProduct';
 import SelectDesign from './SelectDesign';
 import OrderForm from './OrderForm';
-import { addToCart, updateActiveImage, fetchSpec, updateCartItem, resetCreateOrderState } from '../../action';
+import { addToCart, updateActiveImage, fetchSpec, updateCartItem, resetCreateOrderState, hideAddToCartSuccess } from '../../action';
 
-const { func, object } = React.PropTypes;
+const { func, object, bool } = React.PropTypes;
 
 const imgStyle = { width: '50px', height: '50px', border: '1px solid transparent', marginLeft: '5px', borderRadius: '5%', boxShadow: '0 2px 2px 0 rgba(0,0,0,.11), inset 0 2px 2px 0 rgba(255,255,255,.3)' };
 
@@ -20,7 +22,10 @@ class CreateShirt extends React.Component {
     fetchSpec: func.isRequired,
     reset: func.isRequired,
     currentDesign: object.isRequired,
+    showAddToCartSuccess: bool.isRequired,
     spec: object,
+    history: object.isRequired,
+    hideAddToCartSuccess: func.isRequired,
   }
 
   static defaultProps = {
@@ -64,6 +69,14 @@ class CreateShirt extends React.Component {
     this.props.updateActiveImage(e.target.closest('a').getAttribute('href'));
   }
 
+  handleCheckout = () => {
+    this.props.history.push('/checkout');
+  }
+
+  hideAddToCartSuccess = () => {
+    this.props.hideAddToCartSuccess();
+  }
+
   render() {
     return (
       <div>
@@ -101,13 +114,22 @@ class CreateShirt extends React.Component {
             >添加到购物车</Button>
           }
         </div>
+        <Snackbar
+          open={this.props.showAddToCartSuccess}
+          onRequestClose={this.hideAddToCartSuccess}
+          action="结账"
+          message="成功添加至购物车"
+          autoHideDuration={4000}
+          onActionTouchTap={this.handleCheckout}
+        />
       </div>
     );
   }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
   currentDesign: state.currentDesign,
+  showAddToCartSuccess: state.ui.createOrder.showAddToCartSuccess,
   spec: state.entities.specs.byIds[state.currentDesign.detail.productId],
 }), dispatch => ({
   addToCart(order) {
@@ -125,4 +147,7 @@ export default connect(state => ({
   reset() {
     dispatch(resetCreateOrderState);
   },
-}))(CreateShirt);
+  hideAddToCartSuccess() {
+    dispatch(hideAddToCartSuccess);
+  },
+}))(CreateShirt));

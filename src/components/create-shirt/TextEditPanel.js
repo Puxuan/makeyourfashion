@@ -156,7 +156,7 @@ class TextEditPanel extends React.Component {
           >
             {
               fontList.map(n =>
-                <MenuItem value={n} innerDivStyle={{ fontFamily: n }} primaryText={n} />,
+                <MenuItem key={n} value={n} innerDivStyle={{ fontFamily: n }} primaryText={n} />,
               )
             }
           </SelectField>

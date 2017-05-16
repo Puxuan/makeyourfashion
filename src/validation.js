@@ -1,5 +1,8 @@
 export function validateOrder(order) {
   const errors = {};
+  if (order.detail.qty === undefined || order.detail.qty === null) {
+    errors.qty = '请选择商品数量';
+  }
   if (order.detail.qty <= 0) {
     errors.qty = '请选择至少一件商品';
   }

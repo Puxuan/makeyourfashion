@@ -11,6 +11,8 @@ import {
   SET_ACTIVE_SUB_CATEGORY,
   FINISH_FETCH_CATEGORIES,
   RESET_CREATE_ORDER_STATE,
+  HIDE_ADD_TO_CART_SUCCESS,
+  ADD_TO_CART,
 } from '../../action';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   isProductModelOpen: false,
   showTextEdit: false,
   showTextSettings: false,
+  showAddToCartSuccess: false,
 };
 
 function createOrder(state = initialState, action) {
@@ -76,6 +79,16 @@ function createOrder(state = initialState, action) {
       return {
         ...state,
         activeTextId: action.payload,
+      };
+    case ADD_TO_CART:
+      return {
+        ...state,
+        showAddToCartSuccess: true,
+      };
+    case HIDE_ADD_TO_CART_SUCCESS:
+      return {
+        ...state,
+        showAddToCartSuccess: false,
       };
     case TOGGLE_ADD_TEXT_PANEL:
       if (state.showTextEdit === true) {

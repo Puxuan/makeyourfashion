@@ -151,7 +151,8 @@ canvas {
 
 .actionarea {
   position: relative;
-  margin: 40px 40px 0 40px;
+  margin: 40px 40px 40px 40px;
+  padding-bottom: 40px;
 }
 .actionbutton {
   position: absolute;
@@ -315,19 +316,9 @@ legend {
   font-weight: bold;
 }
 
-.category-card {
-  width: 230px;
-  margin: 0px 10px 20px 10px;
-}
-
-.category-card2 {
-  width: 480px;
-  margin: 0px 10px 20px 10px;
-}
-
 .landing-background {
   background:blue url("/image/background.jpg") no-repeat scroll center;
-  height: 600px;
+  height: 500px;
   margin-bottom: 20px;
   position: relative;
 }
@@ -349,4 +340,49 @@ legend {
 .landing-category {
   max-width: 1000px;
   margin: auto;
+}
+
+@media (max-width: 1000px) {
+  .category-card {
+    width: 50%;
+    padding: 3px 3px 3px 3px;
+  }
+
+  .landing-category-main {
+    width: 100%;
+    max-height: 230px;
+    padding: 0px 0px 0px 3px;
+  }
+
+  .category-card2 {
+    width: 100%;
+    padding: 0px 3px 3px 3px;
+  }
+}
+
+@media (max-height: 700px) {
+  .landing-background {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .category-card {
+    width: 230px;
+    margin: 0px 10px 20px 10px;
+  }
+
+  .landing-category-main {
+    width: 230px;
+    margin: 0px 10px 20px 10px;
+  }
+
+  .category-card2 {
+    width: 480px;
+    margin: 0px 10px 20px 10px;
+  }
+
+  .landing-sub-cat {
+    max-width: 750px;
+  }
 }

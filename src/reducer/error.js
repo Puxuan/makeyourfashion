@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 import {
-  UPDATE_ORDER,
-  ADD_TO_CART,
-  UPDATE_CART_ITEM,
+  UPDATE_CURRENT_DESIGN,
+  UPDATE_ORDER_ERROR,
+  UPDATE_CART_ERROR,
 } from '../action';
-import { validateOrder, validateOrderWhenPresent } from '../validation';
+import { validateOrderWhenPresent } from '../validation';
 
 function cart(state = {}, action) {
   switch (action.type) {
-    case UPDATE_CART_ITEM:
+    case UPDATE_CART_ERROR:
       return {
         ...state.cart,
-        [action.payload.id]: validateOrder(action.payload),
+        [action.payload.id]: action.payload,
       };
     default:
       return state;
@@ -20,10 +20,10 @@ function cart(state = {}, action) {
 
 function order(state = {}, action) {
   switch (action.type) {
-    case UPDATE_ORDER:
+    case UPDATE_CURRENT_DESIGN:
       return validateOrderWhenPresent(action.payload);
-    case ADD_TO_CART:
-      return validateOrder(action.payload);
+    case UPDATE_ORDER_ERROR:
+      return action.payload;
     default:
       return state;
   }
