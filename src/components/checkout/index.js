@@ -90,10 +90,10 @@ class Checkout extends React.Component {
           <Cell col={8}>
             <Stepper activeStep={this.state.step}>
               <Step>
-                <StepLabel>填写邮寄地址</StepLabel>
+                <StepLabel>邮寄地址</StepLabel>
               </Step>
               <Step>
-                <StepLabel>填写支付信息</StepLabel>
+                <StepLabel>支付信息</StepLabel>
               </Step>
               <Step>
                 <StepLabel>下单</StepLabel>

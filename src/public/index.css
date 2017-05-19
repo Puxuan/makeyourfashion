@@ -1,3 +1,7 @@
+h1 {
+  font-size: 1.6em;
+}
+
 body {
   background-color: #fdfdf9;
 }
@@ -29,7 +33,6 @@ body {
 
 @media (min-width: 600px) {
   .header {
-    padding: 0 20px 0 20px;
     letter-spacing: .20rem;
   }
   .header-tab {

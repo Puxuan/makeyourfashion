@@ -8,12 +8,16 @@ const styles = {
   mainCategory: typeof window !== 'undefined' && window.matchMedia('(max-width: 1000px)').matches ? { height: '50%' } : {},
 };
 
+const buttonColor = '#009e92';
+
 const Landing = () => (
   <div>
     <div className="landing-background">
       <div className="welcome">
         <h2>开启你的时尚之旅</h2>
-        <RaisedButton label="设计" containerElement={<Link to="/create" />} primary />
+        <RaisedButton overlayStyle={{ backgroundColor: buttonColor }} label="设计" containerElement={<Link to="/create" />} primary />
+        <span style={{ margin: '0 15px 0 15px' }}>或</span>
+        <RaisedButton overlayStyle={{ backgroundColor: buttonColor }} backgroundColor={buttonColor} label="购物" containerElement={<Link to="/shop/all" />} primary />
       </div>
     </div>
     <div className="flexlist landing-category">
