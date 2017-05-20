@@ -7,7 +7,6 @@ import { renderToString } from 'react-dom/server';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { indigo500, indigo700, indigo800 } from 'material-ui/styles/colors';
-import asyncBootstrapper from 'react-async-bootstrapper';
 import { StaticRouter } from 'react-router';
 import App from '../../App';
 import reducer from '../../reducer';
@@ -96,12 +95,12 @@ function renderHtml(req, initialState) {
       </Provider>
     </MuiThemeProvider>
   );
-  return asyncBootstrapper(reactApp).then(() => template({
+  return template({
     root: renderToString(reactApp),
     state: initialState,
     jsBundle: clientAssets.main.js,
     cssBundle: clientAssets.main.css,
-  }));
+  });
 }
 
 router.get('/create', (req, res) => {
@@ -119,9 +118,7 @@ router.get('/create', (req, res) => {
   }
   specPromise.then((spec) => {
     const initialState = getState(design, {}, spec);
-    renderHtml(req, initialState).then((html) => {
-      res.send(html);
-    });
+    res.send(renderHtml(req, initialState));
   }).catch((e) => {
     console.error(e.stack);
     res.json(e);
@@ -143,24 +140,20 @@ router.get('/checkout', (req, res) => {
   }
   specPromise.then((spec) => {
     const initialState = getState(design, {}, spec);
-    renderHtml(req, initialState).then((html) => {
-      res.send(html);
-    });
+    res.send(renderHtml(req, initialState));
   }).catch((e) => {
     console.error(e.stack);
     res.json(e);
   });
 });
 
-router.get('/', (req, res) => {
+router.get('/*', (req, res) => {
   let design;
   if (req.cookies.currentDesign) {
     design = JSON.parse(req.cookies.currentDesign);
   }
   const initialState = getState(design, {});
-  renderHtml(req, initialState).then((html) => {
-    res.send(html);
-  });
+  res.send(renderHtml(req, initialState));
 });
 
 export default router;
