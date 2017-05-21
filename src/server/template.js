@@ -11,7 +11,7 @@ function template(vo) {
             <link rel="stylesheet" href="/material.min.css">
             <link rel="stylesheet" href="/index.css">
             ${vo.cssBundle ? '<link rel="stylesheet" href="' + vo.cssBundle + '">' : ''}
-            <title>Create Shirt</title>
+            <title>T舍网</title>
         </head>
         <body>
             <div id="root">${vo.root}</div>

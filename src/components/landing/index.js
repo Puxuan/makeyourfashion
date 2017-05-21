@@ -17,7 +17,7 @@ const Landing = () => (
         <h2>开启你的时尚之旅</h2>
         <RaisedButton overlayStyle={{ backgroundColor: buttonColor }} label="设计" containerElement={<Link to="/create" />} primary />
         <span style={{ margin: '0 15px 0 15px' }}>或</span>
-        <RaisedButton overlayStyle={{ backgroundColor: buttonColor }} backgroundColor={buttonColor} label="购物" containerElement={<Link to="/shop/all" />} primary />
+        <RaisedButton overlayStyle={{ backgroundColor: buttonColor }} backgroundColor={buttonColor} label="购物" containerElement={<Link to="/shop/2" />} primary />
       </div>
     </div>
     <div className="flexlist landing-category">
@@ -33,14 +33,14 @@ const Landing = () => (
         <div className="flexlist">
           <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="母亲节" />}
+              overlay={<CardTitle titleStyle={styles.title} title="母亲节" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgBlack-medium,f_auto/aum/na/designs/1008125251,width=300,height=300,mother\'s day.png" />
             </CardMedia>
           </Card>
           <Card className="category-card">
             <CardMedia
-              overlay={<CardTitle style={styles.cardRoot} titleStyle={styles.title} title="生日特辑" />}
+              overlay={<CardTitle titleStyle={styles.title} title="生日特辑" />}
             >
               <img src="//image.spreadshirtmedia.com/content/t_bgBlack-medium,f_auto/aum/na/designs/13348114,width=300,height=300,Birthday.png" />
             </CardMedia>

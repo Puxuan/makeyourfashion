@@ -81,6 +81,13 @@ export default class SelectProduct extends React.Component {
     this.props.fetchCategories();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const categories = Object.values(nextProps.categories);
+    if (categories.length && !Object.values(this.props.categories).length) {
+      this.props.fetchCategory(categories[0].id);
+    }
+  }
+
   handleTabChange = (e) => {
     const catId = e.target.getAttribute('data-catagory-id');
     this.props.setActiveCategory(catId);

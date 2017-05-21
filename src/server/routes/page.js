@@ -36,7 +36,7 @@ function getState(currentDesign = { detail: {}, texts: {}, designs: {} }, catalo
         allIds: [],
       },
       categories: {
-        byIds: keyBy(catalogs, 'id'),
+        byIds: catalogs ? keyBy(catalogs, 'id') : {},
       },
       subCategories: {
         byIds: {},

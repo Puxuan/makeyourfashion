@@ -92,7 +92,7 @@ class Design extends React.Component {
     };
     if (design) {
       const image = new window.Image();
-      image.crossOrigin = 'anonymous';
+      image.crossOrigin = 'Anonymous';
       image.src = design.imgUrl;
       image.onload = () => {
         this.setState({
@@ -127,7 +127,7 @@ class Design extends React.Component {
     const design = nextProps.designs.byIds[nextDesignId];
     if (design) {
       const image = new window.Image();
-      image.crossOrigin = 'anonymous';
+      image.crossOrigin = 'Anonymous';
       image.src = design.imgUrl;
       image.onload = () => {
         this.setState({

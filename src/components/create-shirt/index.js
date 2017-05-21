@@ -8,7 +8,16 @@ import LeftPanel from './LeftPanel';
 import SelectProduct from './SelectProduct';
 import SelectDesign from './SelectDesign';
 import OrderForm from './OrderForm';
-import { addToCart, updateActiveImage, fetchSpec, updateCartItem, resetCreateOrderState, hideAddToCartSuccess } from '../../action';
+import { getQueryString } from '../../utils';
+import {
+  addToCart,
+  updateActiveImage,
+  fetchSpec,
+  updateCartItem,
+  resetCreateOrderState,
+  hideAddToCartSuccess,
+  selectProduct,
+} from '../../action';
 
 const { func, object, bool } = React.PropTypes;
 
@@ -25,6 +34,7 @@ class CreateShirt extends React.Component {
     showAddToCartSuccess: bool.isRequired,
     spec: object,
     history: object.isRequired,
+    selectProduct: func.isRequired,
     hideAddToCartSuccess: func.isRequired,
   }
 
@@ -33,7 +43,12 @@ class CreateShirt extends React.Component {
   }
 
   componentDidMount() {
-    const productId = this.props.currentDesign.detail.productId;
+    const newProductId = getQueryString(this.props.location.search).product;
+    let productId = this.props.currentDesign.detail.productId;
+    if (newProductId && newProductId !== productId) {
+      this.props.selectProduct(newProductId);
+      productId = newProductId;
+    }
     if (productId) {
       this.props.fetchSpec(productId);
     }
@@ -134,6 +149,9 @@ export default withRouter(connect(state => ({
 }), dispatch => ({
   addToCart(order) {
     dispatch(addToCart(order));
+  },
+  selectProduct(order) {
+    dispatch(selectProduct(order));
   },
   updateCart(order) {
     dispatch(updateCartItem(order));

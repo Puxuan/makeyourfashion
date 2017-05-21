@@ -2,6 +2,10 @@ h1 {
   font-size: 1.6em;
 }
 
+h2 {
+  font-size: 1.4em;
+}
+
 body {
   background-color: #fdfdf9;
 }
@@ -296,7 +300,7 @@ canvas {
 
 .main-content {
   margin: auto;
-  max-width: 1440px;
+  max-width: 1280px;
 }
 
 @media (max-width: 600px) {
@@ -346,6 +350,10 @@ legend {
 }
 
 @media (max-width: 1000px) {
+  .product-card {
+    width: 150px;
+    margin: 0px 10px 20px 10px;
+  }
   .category-card {
     width: 50%;
     padding: 3px 3px 3px 3px;
@@ -370,6 +378,10 @@ legend {
 }
 
 @media (min-width: 1000px) {
+  .product-card {
+    width: 200px;
+    margin: 0px 10px 20px 10px;
+  }
   .category-card {
     width: 230px;
     margin: 0px 10px 20px 10px;
@@ -388,4 +400,14 @@ legend {
   .landing-sub-cat {
     max-width: 750px;
   }
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.product-card:hover {
+  cursor: pointer;
 }

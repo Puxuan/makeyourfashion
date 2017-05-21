@@ -348,7 +348,6 @@ function fetchCategories() {
             type: FINISH_FETCH_CATEGORIES,
             payload: categories,
           });
-          dispatch(fetchCategory(categories[0].id));
         });
     }
   };
